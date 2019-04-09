@@ -10,12 +10,12 @@ import androidx.databinding.DataBindingUtil
 import eti.com.abellopes.databinding.ItemViewBinding
 import androidx.recyclerview.widget.RecyclerView
 import eti.com.abellopes.R
-import eti.com.abellopes.repository.model.Herois
+import eti.com.abellopes.repository.model.Heroi
 import kotlinx.android.synthetic.main.loading_view.view.*
 
 class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
 
-    private var items: List<Herois> = emptyList()
+    private var items: List<Heroi> = emptyList()
 
     private val loading = 0
     private val item = 1
@@ -36,7 +36,7 @@ class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
         }
     }
 
-    fun update(items: List<Herois>) {
+    fun update(items: List<Heroi>) {
         this.items = items
         notifyDataSetChanged()
     }
@@ -44,7 +44,7 @@ class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
     companion object {
         @JvmStatic
         @BindingAdapter("items")
-        fun RecyclerView.bindItems(items: List<Herois>) {
+        fun RecyclerView.bindItems(items: List<Heroi>) {
             val adapter = adapter as ItemsAdapter
             adapter.update(items)
         }
@@ -65,7 +65,7 @@ class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
         )
     ) : ViewHolder(binding.root) {
 
-        fun bind(item: Herois) {
+        fun bind(item: Heroi) {
             binding.item = item
         }
     }

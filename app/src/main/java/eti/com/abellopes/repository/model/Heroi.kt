@@ -3,7 +3,7 @@ package eti.com.abellopes.repository.model
 import java.net.URL
 import java.util.*
 
-data class Herois(
+data class Heroi(
     val id: Int?,
     val name: String?,
     val description: String?,

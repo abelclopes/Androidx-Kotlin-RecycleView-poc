@@ -9,11 +9,11 @@ class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_marvel)
+
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.ListConstraintLayout, MarvelFragment.newInstance())
                 .commitNow()
         }
     }
-
 }

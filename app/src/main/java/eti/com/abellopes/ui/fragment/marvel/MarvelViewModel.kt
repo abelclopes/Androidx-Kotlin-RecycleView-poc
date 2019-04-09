@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import eti.com.abellopes.repository.ItemsRepository
-import eti.com.abellopes.repository.model.Herois
+import eti.com.abellopes.repository.model.Heroi
 import eti.com.abellopes.ui.Event
 
 
@@ -14,9 +14,9 @@ data class Page(val positionStart: Int, val count: Int)
 class MarvelViewModel : ViewModel() {
 
     private val repository = ItemsRepository()
-    private val list = mutableListOf<Herois>()
+    private val list = mutableListOf<Heroi>()
 
-    private val _items = MutableLiveData<List<Herois>>().apply { value = list }
+    private val _items = MutableLiveData<List<Heroi>>().apply { value = list }
     private val _addItems = MutableLiveData<Event<Page>>()
     private val _removeItem = MutableLiveData<Event<Int>>()
 
@@ -26,7 +26,7 @@ class MarvelViewModel : ViewModel() {
 
     private var delay = 0L
 
-    val items: LiveData<List<Herois>>
+    val items: LiveData<List<Heroi>>
         get() = _items
 
     val addItems: LiveData<Event<Page>>
@@ -64,7 +64,7 @@ class MarvelViewModel : ViewModel() {
 
     private fun showLoading() {
         list.add(
-            Herois(
+            Heroi(
                 id = list.size + 1,
                 name = "",
                 description = "",
