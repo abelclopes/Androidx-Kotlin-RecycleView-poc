@@ -15,6 +15,11 @@ import eti.com.abellopes.databinding.FragmentMarvelBinding
 import eti.com.abellopes.ui.Adapter.ItemsAdapter
 import eti.com.abellopes.ui.subscribe
 import kotlinx.android.synthetic.main.fragment_marvel.*
+import eti.com.abellopes.MainActivity
+
+
+
+
 
 
 class MarvelFragment : Fragment() {
