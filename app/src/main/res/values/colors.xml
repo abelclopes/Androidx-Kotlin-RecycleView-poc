@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="colorPrimary">#FFBF00</color>
+    <color name="colorPrimaryDark">#FFBF00</color>
+    <color name="colorAccent">#333840</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+
+    <color name="colorBackgroundDefault">#FFFFFF</color>
+    <color name="colorFadingEdge">#2F000000</color>
+
+    <color name="colorGreen">#21CA75</color>
+    <color name="coloRed">#FF1A40</color>
+    <color name="colorBlue">#00C7D9</color>
+    <color name="colorOrange">#FE5319</color>
+
+    <color name="colorYellow100">#997300</color>
+    <color name="colorYellow200">#CC9A00</color>
+    <color name="colorYellow300">#FFBF00</color>
+    <color name="colorYellow400">#FFD966</color>
+    <color name="colorYellow500">#FFF2CC</color>
+
+    <color name="colorGray100">#333840</color>
+    <color name="colorGray200">#3E4A59</color>
+    <color name="colorGray300">#455873</color>
+    <color name="colorGray400">#ADBFD9</color>
+    <color name="colorGray500">#E6EBF2</color>
+
+    <color name="colorGreen100">#006633</color>
+    <color name="colorGreen200">#00994D</color>
+    <color name="colorGreen300">#21CA75</color>
+    <color name="colorGreen400">#99FFCC</color>
+    <color name="colorGreen500">#CCFFE5</color>
+
+    <color name="colorRed100">#99001A</color>
+    <color name="colorRed200">#CC0022</color>
+    <color name="colorRed300">#FF1A40</color>
+    <color name="colorRed400">#FF6680</color>
+    <color name="colorRed500">#FFCCD5</color>
+
+    <color name="colorBlue100">#296166</color>
+    <color name="colorBlue200">#1F8F99</color>
+    <color name="colorBlue300">#00C7D9</color>
+    <color name="colorBlue400">#8ADEE6</color>
+    <color name="colorBlue500">#C2EFF2</color>
+
+    <color name="colorOrange100">#99320F</color>
+    <color name="colorOrange200">#CC4214</color>
+    <color name="colorOrange300">#FE5319</color>
+    <color name="colorOrange400">#FE8C66</color>
+    <color name="colorOrange500">#FED8CB</color>
+
+    <color name="colorFacebook">#385897</color>
+    <color name="colorFacebookPressed">#29406D</color>
+    <color name="colorGooglePlus">#4285F4</color>
+    <color name="colorGooglePlusPressed">#3060B0</color>
+    <color name="colorShadow">#66000000</color>
+
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#00C7D9</color>
+
+</resources>

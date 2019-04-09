@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="avatar">avatar</string>
+    <string name="textview">TextView</string>
+    <string name="user_name">Name</string>
+    <string name="descripition">descripition</string>
+    <string name="descripitionTextview">descripition</string>
+    <string name="app_name">App Poc RecycleView</string>
+</resources>
+
