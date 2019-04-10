@@ -19,6 +19,7 @@ class ItemsRepository {
                     id = i,
                     name = "Heroi $i",
                     description = "Heroi description $i",
+                    picture = "",
                     loading = ""
                 )
             )

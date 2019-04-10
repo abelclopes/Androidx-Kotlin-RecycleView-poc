@@ -7,6 +7,7 @@ data class Heroi(
     val id: Int?,
     val name: String?,
     val description: String?,
+    val picture: String?,
     //val modified: Date?,
     //val resourceURI: String?,
     //val urls: Any?,
@@ -16,4 +17,6 @@ data class Heroi(
 //    val events: EventList?,
 //    val series: SeriesList?,
     val loading: String?
-){}
+){
+
+}

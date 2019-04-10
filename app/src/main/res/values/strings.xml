@@ -6,5 +6,6 @@
     <string name="descripitionTextview">descripition</string>
     <string name="app_name">App Poc RecycleView</string>
     <string name="Search">Buscar</string>
+    <string name="search_hint">Pesquisar</string>
 </resources>
 

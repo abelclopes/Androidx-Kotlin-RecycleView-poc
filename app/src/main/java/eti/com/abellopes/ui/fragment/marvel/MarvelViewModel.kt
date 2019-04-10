@@ -68,6 +68,7 @@ class MarvelViewModel : ViewModel() {
                 id = list.size + 1,
                 name = "",
                 description = "",
+                picture = "",
                 loading = "loading"
             )
         )
