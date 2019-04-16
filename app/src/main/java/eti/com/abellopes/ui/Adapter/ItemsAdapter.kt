@@ -5,8 +5,6 @@ package eti.com.abellopes.ui.Adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import eti.com.abellopes.databinding.ItemViewBinding
@@ -15,13 +13,24 @@ import eti.com.abellopes.R
 import eti.com.abellopes.repository.model.Heroi
 import kotlinx.android.synthetic.main.loading_view.view.*
 import java.util.*
+import android.widget.TextView
+import android.text.Spannable
+import android.text.style.RelativeSizeSpan
+import android.text.style.BackgroundColorSpan
+import android.graphics.Typeface
+import android.text.style.TextAppearanceSpan
+import android.content.res.ColorStateList
+import android.text.SpannableStringBuilder
+import java.util.regex.Pattern
+import android.graphics.Color
+import android.widget.ImageView
 
-import kotlin.collections.ArrayList
 
-class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.ViewHolder>(), Filterable {
+class ItemsAdapter(private var onItemClicked: (Heroi) -> Unit) : RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
 
     private var items: List<Heroi> = emptyList()
     private var itemsSearchList: List<Heroi>? = emptyList()
+    lateinit var searchText: String
 
     private val loading = 0
     private val item = 1
@@ -38,11 +47,12 @@ class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.ViewHolder>(), Filterable
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (holder is ItemViewHolder && items.size > position) {
-            holder.bind(items[position])
+            holder.bind(items[position],searchText, onItemClicked)
         }
     }
 
-    fun update(items: List<Heroi>) {
+    fun update(items: List<Heroi>, searchText: String? = "") {
+        this.searchText = searchText!!
         this.items = items
         notifyDataSetChanged()
     }
@@ -70,9 +80,55 @@ class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.ViewHolder>(), Filterable
             false
         )
     ) : ViewHolder(binding.root) {
+        var nameItemView: TextView
+        var descriptionItemView: TextView
+        var pictureItemView: ImageView
+        init {
+            nameItemView = binding.name
+            descriptionItemView = binding.description
+            pictureItemView = binding.picture
+        }
+        fun bind(item: Heroi, searchText: String?, onItemClicked: (Heroi)-> Unit) {
+            setAdvancedDetailsHighlight(binding.name, item.name!!, searchText)
+            binding.description.text = item.description
+            binding.root.setOnClickListener {
+                onItemClicked(item)
+            }
+        }
+        private fun setAdvancedDetailsHighlight(textView: TextView, fullText: String, search: String?) {
+            val searchText: String = search!!.replace("'", "")
 
-        fun bind(item: Heroi) {
-            binding.item = item
+            // highlight search text
+            if (!searchText.isEmpty()) {
+
+                val wordSpan = SpannableStringBuilder(fullText)
+                val p = Pattern.compile(searchText, Pattern.CASE_INSENSITIVE)
+                val m = p.matcher(fullText)
+                while (m.find()) {
+
+                    val wordStart = m.start()
+                    val wordEnd = m.end()
+
+                    // Now highlight based on the word boundaries
+                    val redColor = ColorStateList(arrayOf(intArrayOf()), intArrayOf(Color.BLACK))//intArrayOf(-0x000000)
+                    val highlightSpan = TextAppearanceSpan(null, Typeface.BOLD, -1, redColor, null)
+
+                    wordSpan.setSpan(highlightSpan, wordStart, wordEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    wordSpan.setSpan(
+                        BackgroundColorSpan(Color.WHITE),
+                        wordStart,
+                        wordEnd,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    wordSpan.setSpan(RelativeSizeSpan(1.25f), wordStart, wordEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+                }
+
+                textView.setText(wordSpan, TextView.BufferType.SPANNABLE)
+
+            } else {
+                textView.text = fullText
+            }
         }
     }
 
@@ -91,31 +147,6 @@ class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.ViewHolder>(), Filterable
         }
     }
 
-    override fun getFilter(): Filter {
-        return object : Filter() {
-            override fun performFiltering(charSequence: CharSequence): Filter.FilterResults {
-                val charString = charSequence.toString()
-                if (charString.isEmpty()) {
-                    itemsSearchList = items
-                } else {
-                    val filteredList = ArrayList<Heroi>()
-                    for (row in items) {
-                        if (row.name!!.toLowerCase().contains(charString.toLowerCase()) || row.description!!.contains(charSequence)) {
-                            filteredList.add(row)
-                        }
-                    }
-                    itemsSearchList = filteredList
-                }
-                val filterResults = Filter.FilterResults()
-                filterResults.values = itemsSearchList
-                return filterResults
-            }
-            override fun publishResults(charSequence: CharSequence, filterResults: Filter.FilterResults) {
-                itemsSearchList = filterResults.values as ArrayList<Heroi>
-                notifyDataSetChanged()
-            }
-        }
-    }
 
     private var tempNameVersionList: List<Heroi> = mutableListOf()
 
@@ -138,17 +169,19 @@ class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.ViewHolder>(), Filterable
 
             */
 
-            update(tempNameVersionList)
+            update(tempNameVersionList, text)
 
 
         } else {
             for (i in 0..tempNameVersionList.size - 1) {
                 if (tempNameVersionList.get(i).name!!.toLowerCase(Locale.getDefault()).contains(text)) {
-                    update(tempNameVersionList.filter { children -> children.name!!.toLowerCase(Locale.getDefault()).contains(text)})
+                    update(tempNameVersionList.filter { children -> children.name!!.toLowerCase(Locale.getDefault()).contains(text)},text)
                 }
             }
         }
         //This is to notify that data change in Adapter and Reflect the changes.
         notifyDataSetChanged()
     }
+
+
 }

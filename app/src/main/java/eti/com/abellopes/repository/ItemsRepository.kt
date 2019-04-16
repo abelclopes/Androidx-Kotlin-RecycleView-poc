@@ -17,8 +17,8 @@ class ItemsRepository {
             items.add(
                 Heroi(
                     id = i,
-                    name = "Heroi $i",
-                    description = "Heroi description $i",
+                    name = "Heroi ${i}",
+                    description = "Heroi description ${i}",
                     picture = "",
                     loading = ""
                 )

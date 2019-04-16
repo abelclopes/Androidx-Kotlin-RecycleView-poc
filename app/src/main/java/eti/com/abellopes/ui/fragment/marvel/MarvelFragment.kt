@@ -2,6 +2,7 @@ package eti.com.abellopes.ui.fragment.marvel
 
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,9 +18,6 @@ import eti.com.abellopes.databinding.FragmentMarvelBinding
 import eti.com.abellopes.ui.Adapter.ItemsAdapter
 import eti.com.abellopes.ui.subscribe
 import kotlinx.android.synthetic.main.fragment_marvel.*
-
-
-
 
 
 
@@ -43,6 +41,7 @@ class MarvelFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -51,25 +50,32 @@ class MarvelFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
         recyclerView.hasFixedSize()
-        var customAdapter = ItemsAdapter()
+        var customAdapter = ItemsAdapter{
+            Log.d("TAG", it.toString())
+        }
         recyclerView.adapter =  customAdapter
         recyclerView.addItemDecoration(DividerItemDecoration(context, layoutManager.orientation))
 
         addItensRecycle()
-
+        var loading = false
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-
-                val text = newText
-                /*Call filter Method Created in Custom Adapter
-                    This Method Filter ListView According to Search Keyword
-                 */
-
-                customAdapter.filter(text)
+                var search = newText
+                Run.after(800) {
+                    if (loading) {
+                        viewModel.fetchMoreItems(customAdapter, search)
+                        loading = true
+                    } else {
+                        loading = false
+                        customAdapter.filter(newText!!.toLowerCase().trim())
+                        println("800 milesi...")
+                    }
+                }
                 return false
             }
         })
@@ -95,5 +101,14 @@ class MarvelFragment : Fragment() {
             (recyclerView.adapter as ItemsAdapter).notifyItemRemoved(data)
         }
 
+    }
+}
+class Run {
+    companion object {
+        fun after(delay: Long, process: () -> Unit) {
+            Handler().postDelayed({
+                process()
+            }, delay)
+        }
     }
 }
